@@ -178,7 +178,13 @@ int main(int argc, char **argv, char **envp)
         errx(EXIT_FAILURE, "Failed to resolve mpengine entrypoint");
     }
 
-    EXCEPTION_DISPOSITION ExceptionHandler(struct _EXCEPTION_RECORD *ExceptionRecord,
+#ifdef __cplusplus
+    // fix C++ error: function definition is not allowed here
+    PEXCEPTION_HANDLER ExceptionHandler = reinterpret_cast<PEXCEPTION_HANDLER>(+[](
+#else
+    EXCEPTION_DISPOSITION ExceptionHandler(
+#endif
+            struct _EXCEPTION_RECORD *ExceptionRecord,
             struct _EXCEPTION_FRAME *EstablisherFrame,
             struct _CONTEXT *ContextRecord,
             struct _EXCEPTION_FRAME **DispatcherContext)
@@ -186,6 +192,9 @@ int main(int argc, char **argv, char **envp)
         LogMessage("Toplevel Exception Handler Caught Exception");
         abort();
     }
+#ifdef __cplusplus
+    );
+#endif
 
     VOID ResourceExhaustedHandler(int Signal)
     {
