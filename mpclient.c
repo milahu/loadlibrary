@@ -107,7 +107,7 @@ static DWORD GetStreamSize(PVOID _this, PULONGLONG FileSize)
 
 static PWCHAR GetStreamName(PVOID _this)
 {
-    return L"input";
+    return (PWCHAR)"input";
 }
 
 // These are available for pintool.
