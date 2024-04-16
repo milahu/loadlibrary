@@ -91,21 +91,21 @@ static DWORD EngineScanCallback(PSCANSTRUCT Scan)
     return 0;
 }
 
-static DWORD ReadStream(PVOID this, ULONGLONG Offset, PVOID Buffer, DWORD Size, PDWORD SizeRead)
+static DWORD ReadStream(PVOID _this, ULONGLONG Offset, PVOID Buffer, DWORD Size, PDWORD SizeRead)
 {
-    fseek(this, Offset, SEEK_SET);
-    *SizeRead = fread(Buffer, 1, Size, this);
+    fseek(_this, Offset, SEEK_SET);
+    *SizeRead = fread(Buffer, 1, Size, _this);
     return TRUE;
 }
 
-static DWORD GetStreamSize(PVOID this, PULONGLONG FileSize)
+static DWORD GetStreamSize(PVOID _this, PULONGLONG FileSize)
 {
-    fseek(this, 0, SEEK_END);
-    *FileSize = ftell(this);
+    fseek(_this, 0, SEEK_END);
+    *FileSize = ftell(_this);
     return TRUE;
 }
 
-static PWCHAR GetStreamName(PVOID this)
+static PWCHAR GetStreamName(PVOID _this)
 {
     return L"input";
 }
