@@ -196,10 +196,18 @@ int main(int argc, char **argv, char **envp)
     );
 #endif
 
+#ifdef __cplusplus
+    // fix C++ error: function definition is not allowed here
+    auto ResourceExhaustedHandler = [](int Signal)
+#else
     VOID ResourceExhaustedHandler(int Signal)
+#endif
     {
         errx(EXIT_FAILURE, "Resource Limits Exhausted, Signal %s", strsignal(Signal));
     }
+#ifdef __cplusplus
+    ;
+#endif
 
     setup_nt_threadinfo(ExceptionHandler);
 
