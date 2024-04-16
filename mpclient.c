@@ -93,15 +93,15 @@ static DWORD EngineScanCallback(PSCANSTRUCT Scan)
 
 static DWORD ReadStream(PVOID _this, ULONGLONG Offset, PVOID Buffer, DWORD Size, PDWORD SizeRead)
 {
-    fseek(_this, Offset, SEEK_SET);
-    *SizeRead = fread(Buffer, 1, Size, _this);
+    fseek((FILE *)_this, Offset, SEEK_SET);
+    *SizeRead = fread((FILE *)Buffer, 1, Size, (FILE *)_this);
     return TRUE;
 }
 
 static DWORD GetStreamSize(PVOID _this, PULONGLONG FileSize)
 {
-    fseek(_this, 0, SEEK_END);
-    *FileSize = ftell(_this);
+    fseek((FILE *)_this, 0, SEEK_END);
+    *FileSize = ftell((FILE *)_this);
     return TRUE;
 }
 
