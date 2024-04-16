@@ -145,7 +145,12 @@ int main(int argc, char **argv, char **envp)
 
     // Fetch the headers to get base offsets.
     DosHeader   = (PIMAGE_DOS_HEADER) image.image;
+#ifdef __cplusplus
+    // fix: error: arithmetic on a pointer to void
+    PeHeader    = (PIMAGE_NT_HEADERS)(static_cast<char*>(image.image) + DosHeader->e_lfanew);
+#else
     PeHeader    = (PIMAGE_NT_HEADERS)(image.image + DosHeader->e_lfanew);
+#endif
 
     // Load any additional exports.
     if (!process_extra_exports(image.image, PeHeader->OptionalHeader.BaseOfCode, "engine/mpengine.map")) {
