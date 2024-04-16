@@ -234,10 +234,12 @@ int main(int argc, char **argv, char **envp)
 
     BootParams.ClientVersion = BOOTENGINE_PARAMS_VERSION;
     BootParams.Attributes    = BOOT_ATTR_NORMAL;
-    BootParams.SignatureLocation = L"engine";
-    BootParams.ProductName = L"Legitimate Antivirus";
-    EngineConfig.QuarantineLocation = L"quarantine";
-    EngineConfig.Inclusions = L"*.*";
+    // fix C++ error: assigning to 'PWCHAR' from incompatible type
+    //BootParams.SignatureLocation = L"engine";
+    BootParams.SignatureLocation = (PWCHAR)"engine";
+    BootParams.ProductName = (PWCHAR)"Legitimate Antivirus";
+    EngineConfig.QuarantineLocation = (PWCHAR)"quarantine";
+    EngineConfig.Inclusions = (PWCHAR)"*.*";
     EngineConfig.EngineFlags = 1 << 1;
     BootParams.EngineInfo = &EngineInfo;
     BootParams.EngineConfig = &EngineConfig;
