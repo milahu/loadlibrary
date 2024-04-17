@@ -144,7 +144,7 @@ typedef uint8_t         *PBYTE;
 typedef uint8_t         *LPBYTE;
 typedef int8_t          CHAR;
 typedef char            *PCHAR;
-typedef wchar_t         WCHAR;
+typedef uint16_t        WCHAR;
 typedef CHAR            *LPSTR;
 typedef const char      *LPCSTR;
 typedef WCHAR           *LPWSTR;
